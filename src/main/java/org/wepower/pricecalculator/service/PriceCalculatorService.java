@@ -25,6 +25,14 @@ public class PriceCalculatorService {
 		this.energyPricesRepository = energyPricesRepository;
 	}
 	
+	/**
+	 * get average prices per product and shape
+	 * @param prices
+	 * @param customerType
+	 * @param productTypes
+	 * @return
+	 * @throws Exception
+	 */
 	private Map<String, Double> getAvgQuarterPricePerProduct(List<EnergyPrices> prices, String customerType, String[] productTypes) throws Exception {
 		Map<String, Double> totalPricesMap = new HashMap<String, Double>();
 		try {
@@ -80,23 +88,40 @@ public class PriceCalculatorService {
 		Calendar calEnd = Calendar.getInstance();
 		calEnd.setTimeInMillis(end);
 		String startQuarter = getQuarterValue(calStart);
-		result.add(startQuarter);
 		String endQuarter = getQuarterValue(calEnd);
-		while (!startQuarter.equals(endQuarter)) {
+		do {
+			result.add(startQuarter);
 			calStart.add(Calendar.MONTH, 3);
 			startQuarter = getQuarterValue(calStart);
-			result.add(startQuarter);			
-		}
+		} while (startQuarter.equals(endQuarter));
 
 		return result;
 	}
 	
+	/**
+	 * get price/shape field value as Big Decimal
+	 * @param energyPrice
+	 * @param fieldName
+	 * @return
+	 * @throws NoSuchFieldException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 */
 	private BigDecimal getFieldValue(EnergyPrices energyPrice, String fieldName) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		Field field = EnergyPrices.class.getDeclaredField(fieldName);
 		field.setAccessible(true);
 		return (BigDecimal) field.get(energyPrice);
 	}
 	
+	/**
+	 * calculate total prices and per product
+	 * @param start
+	 * @param end
+	 * @param customerType
+	 * @param product
+	 * @return
+	 */
 	public CalculationResult calculateTotalPrices(Long start, Long end, String customerType, String product) {
 		CalculationResult calculationResult = new CalculationResult();
 		try {
