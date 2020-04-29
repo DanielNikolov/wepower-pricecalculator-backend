@@ -110,7 +110,6 @@ public class PriceCalculatorService {
 			Double lgcPrice = avgProductsPrices.getOrDefault("lgc", 0.00);
 			calculationResult.setLgcPrice(lgcPrice);
 			calculationResult.setTotalPrice(lgcPrice + energyPrice);
-			calculationResult.setSuccess(true);
 		} catch (Exception e) {
 			calculationResult.setError(true);
 			calculationResult.setMessage(e.getMessage());

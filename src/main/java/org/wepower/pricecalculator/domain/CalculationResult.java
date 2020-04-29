@@ -1,11 +1,23 @@
 package org.wepower.pricecalculator.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(description = "Energy Price Calculation Result")
 public class CalculationResult {
+	@ApiModelProperty(notes = "Error flag - true if error, false otherwise")
 	private boolean error;
-	private boolean success;
+	
+	@ApiModelProperty(notes = "Error message")
 	private String message;
+	
+	@ApiModelProperty(notes = "Price for product Energy")
 	private double energyPrice;
+	
+	@ApiModelProperty(notes = "Price for product LGC")
 	private double lgcPrice;
+	
+	@ApiModelProperty(notes = "Total Price")
 	private double totalPrice;
 	
 	public CalculationResult() {
@@ -13,7 +25,6 @@ public class CalculationResult {
 		this.lgcPrice = 0.00;
 		this.totalPrice = 0.00;
 		this.error = false;
-		this.success = false;
 		this.message = "";
 	}
 
@@ -23,14 +34,6 @@ public class CalculationResult {
 
 	public void setError(boolean error) {
 		this.error = error;
-	}
-
-	public boolean isSuccess() {
-		return success;
-	}
-
-	public void setSuccess(boolean success) {
-		this.success = success;
 	}
 
 	public String getMessage() {
