@@ -4,6 +4,7 @@
 package org.wepower.pricecalculator.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ public class PriceCalculatorController {
 	@Autowired
 	private PriceCalculatorService priceCalculatorService;
 
+	@CrossOrigin(origins = "*")
 	@GetMapping("/api/wepower/calculateprice")
 	public CalculationResult calculatePrice(@RequestParam(name = "start", required = true) Long startPeriod,
 			@RequestParam(name = "end", required = true) Long endPeriod,

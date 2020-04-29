@@ -101,6 +101,9 @@ public class PriceCalculatorService {
 		CalculationResult calculationResult = new CalculationResult();
 		try {
 			List<EnergyPrices> priceRecords = energyPricesRepository.findByQuarterIn(getQuarters(start, end));
+			if (priceRecords.size() < 1) {
+				throw new Exception("No price records found");
+			}
 			Map<String, Double> avgProductsPrices = getAvgQuarterPricePerProduct(priceRecords, customerType, product.split(","));
 			Double energyPrice = avgProductsPrices.getOrDefault("energy", 0.00);
 			calculationResult.setEnergyPrice(energyPrice);
