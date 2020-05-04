@@ -11,5 +11,5 @@ Make sure you have Docker installed and it is using Linux containers
 It will build the project and will install an image in Docker
 
 2. Run the following command in PowerShell/Command Console:
-"docker run -p 8081:8080 -t primenumber/primenumber" . 
+"docker run -p 8081:8080 -t wepower/pricecalculator:latest" . 
 It will start the image and you can open it in browser: http://localhost:8081
